@@ -22,6 +22,11 @@ from cycler import cycler
 from scipy.signal import butter, filtfilt
 from itertools import cycle
 
+from bokeh.plotting import figure, output_file, show, save,ColumnDataSource,reset_output
+from bokeh.models import HoverTool, Range1d, Span, LinearAxis,LabelSet, Label, BoxAnnotation
+
+from bokeh.models.glyphs import Line, Text
+
 # ---------------------------------- #
 # Define Subdirectories & Info Files #
 # ---------------------------------- #
@@ -35,6 +40,13 @@ if not os.path.exists(results_dir):
 
 # Read in exp info file
 exp_info = pd.read_csv(info_dir + 'Particulate_Info.csv', index_col='Test_Name')
+
+# create dataframe for max values
+summDataHeaders = ['Test_Name', 'PM1_max','PM2.5_max','RESP_max','PM10_max','TOTAL_max']
+summData = pd.DataFrame(columns=summDataHeaders)
+
+# define tools for bokeh plots
+TOOLS = "pan,wheel_zoom,box_zoom,reset,save"
 
 
 # ------------------- #
@@ -50,10 +62,10 @@ tableau20 = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),
 (227, 119, 194), (247, 182, 210), (127, 127, 127), (199, 199, 199),
 (188, 189, 34), (219, 219, 141), (23, 190, 207), (158, 218, 229)]
 
+tableau20_percent = [] #np.zeros_like(tableau20)
 for i in range(len(tableau20)):
-	
 	r, g, b = tableau20[i]
-	tableau20[i] = (r / 255., g / 255., b / 255.)
+	tableau20_percent.append((r / 255., g / 255., b / 255.))
 
 # Define other general plot parameters
 label_size = 18
@@ -71,7 +83,7 @@ def create_1plot_fig():
 	fig, ax1 = plt.subplots(figsize=(fig_width, fig_height))
 
 	# Plot style - cycle through 20 color pallet & define marker order
-	plt.rcParams['axes.prop_cycle'] = (cycler('color', tableau20))
+	plt.rcParams['axes.prop_cycle'] = (cycler('color', tableau20_percent))
 	# sns.color_palette('Paired')
 	plot_markers = cycle(['s', 'o', '^', 'd', 'h', 'p',
 					   'v', '8', 'D', '*', '<', '>', 'H'])
@@ -80,7 +92,6 @@ def create_1plot_fig():
 	x_max = 0
 	y_min = 0
 	y_max = 0
-
 	return(fig, ax1, plot_markers, x_max, y_min, y_max)
 
 def format_and_save_plot(y_lims, x_lims, file_loc):
@@ -142,10 +153,10 @@ for f in data_file_ls:
 
 	# Get test name from file
 	Test_Name = f.split('/')[-1][:-5]
-	print ('--- Loaded data file for '+Test_Name+' ---')
 
 	# Read in data for experiment
 	Exp_Data = pd.read_excel(f, skiprows=28, usecols=[1,2,3,4,5,6], names=['Timestamp','PM1','PM2.5','RESP','PM10','TOTAL'])
+	print ('--- Loaded data file for '+Test_Name+' ---')
 
 	# check if need to skip lines
 	if Test_Name in exp_info.index.values:
@@ -165,26 +176,46 @@ for f in data_file_ls:
 	save_dir = results_dir+filepath+'/'
 	if not os.path.exists(save_dir):
 		os.makedirs(save_dir)
-	
 	# Create figure for plot(s)
 	fig, ax1, plot_markers, x_max, y_min, y_max = create_1plot_fig()
 	legend_loc = 'upper right'
+
+	# create color tableau for bokeh plots
+	tableau20_cycle=cycle(tableau20)
+
+	# initialize bokeh plotting parameters
+	output_file(save_dir + Test_Name + '.html', mode='cdn')
+	p = figure( x_axis_label='Time (s)', sizing_mode='stretch_both', tools=TOOLS,x_range = Range1d(0,max(Exp_Data.index.values)))
 
 	for channel in ['PM1', 'PM2.5','RESP','PM10','TOTAL']:
 		plot_data = pd.to_numeric(Exp_Data[channel])
 
 		# Set y-axis labels
-		ax1.set_ylabel('Particles (mg/m$^3$)', fontsize=label_size)
+		y_label = 'Particle Density (mg/m^3)'
+		ax1.set_ylabel(y_label, fontsize=label_size)
+		hover_value = y_label
 
 		y_min = 0
 			
 		if equal_scales:
 			y_max = 600
 
-					# Plot channel data
+		# Plot channel data
 		ax1.plot(Exp_Data.index.values, plot_data, lw=line_width,
 			marker=next(plot_markers), markevery=30, mew=3, mec='none', ms=7,
 			label=channel)
+
+		# Plot to bokeh plots
+		source = ColumnDataSource(data=dict(
+			x = Exp_Data.index.values,
+			y = plot_data,
+			channels = np.tile(channel,[len(Exp_Data),1]),
+		))
+
+		r1 = p.line('x', 'y', line_width=2, line_color=next(tableau20_cycle),source=source,legend_label=channel)
+		p.add_tools(HoverTool(renderers=[r1], tooltips=[
+							("Channel Name", "@channels"),
+							("Value", "@y"),]))
 
 		if not equal_scales:
 			# Check if y min/max need to be updated
@@ -193,5 +224,35 @@ for f in data_file_ls:
 			
 			if max(plot_data) * 1.1 > y_max:
 				y_max = max(plot_data) * 1.1
-	 
+
 	format_and_save_plot([y_min, y_max], [0, max(Exp_Data.index.values)], save_dir + Test_Name + '.pdf')
+
+	# set y axis scale
+	p.y_range = Range1d(y_min, y_max)
+	if y_min == 0:
+		height_text = (y_max - y_min) * 0.75
+	else:
+		height_text = y_min + ((y_max - y_min) * 0.75)	
+	p.yaxis.axis_label = y_label
+
+	hover = p.select(dict(type=HoverTool))
+	hover.tooltips = [('Time','$x{1}'),(hover_value,'$y{0.000}'),('Channel','@channels')]
+
+	p.legend.click_policy= 'hide'
+	p.legend.background_fill_alpha = 1.0
+	p.legend.border_line_alpha = 1.0
+	p.legend.label_standoff = 5
+	save(p)	
+	reset_output()
+
+	# add desired values to summary dataframe
+	rowData = [Test_Name, max(Exp_Data['PM1']), max(Exp_Data['PM2.5']), max(Exp_Data['RESP']), max(Exp_Data['PM10']), max(Exp_Data['TOTAL'])]
+	summData = summData.append(pd.DataFrame([rowData], columns=summDataHeaders)) 
+
+
+# sort and index dataframe
+summData = summData.sort_values(by='Test_Name')
+summData = summData.set_index([pd.Index(range(0,len(summData)))])
+# print (summData)
+print()
+summData.to_csv(results_dir + 'Particulate/peakParticulateSummary.csv')
