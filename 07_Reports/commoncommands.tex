@@ -1,7 +1,7 @@
 \usepackage{times,mathptmx}
 \usepackage[pdftex]{graphicx}
 \usepackage{calc}
-\usepackage{tabularx,ragged2e,booktabs,caption,subcaption}
+\usepackage{tabularx,ragged2e,booktabs,caption}
 \usepackage{array}
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -9,6 +9,7 @@
 \usepackage{multirow}
 \usepackage{tocloft}
 \usepackage{xcolor}
+\usepackage{colortbl}
 \usepackage{color,soul}
 \usepackage{amsmath}
 \definecolor{linknavy}{rgb}{0,0,0.50196}
@@ -22,6 +23,7 @@
 \usepackage{relsize}
 \usepackage{ltablex}
 \usepackage{longtable}
+\usepackage{threeparttable}
 \usepackage{lscape}
 \usepackage{amssymb}
 \usepackage{makeidx} % Create index at end of document
@@ -36,12 +38,12 @@
 \usepackage{tikz}
 \usepackage{fancyhdr}
 \usepackage{placeins}
+\usepackage{subfig}
 % \usepackage{subfig}
 % \usepackage{caption}
 \usepackage[toc,page]{appendix}
-
 \usepackage{notoccite}
-\newcommand\notype[1]{\unskip}
+\usepackage{varwidth}
 
 \usepackage{titlesec}
 \titleformat{\chapter}[hang] 
@@ -87,7 +89,7 @@
 \setlength{\oddsidemargin}{0.0in}
 \setlength{\evensidemargin}{0.0in}
 % \setlength{\leftmargini}{\parindent} % Controls the indenting of the "bullets" in a list
-\setlength{\cftsecnumwidth}{0.38in}
+\setlength{\cftsecnumwidth}{0.45in}
 \setlength{\cftsubsecnumwidth}{0.5in}
 \setlength{\cftfignumwidth}{0.45in}
 \setlength{\cfttabnumwidth}{0.45in}
