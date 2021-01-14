@@ -27,10 +27,8 @@ if not os.path.exists(results_dir):
 exp_info = pd.read_csv(info_dir + 'Particulate_Info.csv', index_col='Test_Name')
 
 # create dataframe for max values
-summDataHeaders = ['Test_Name', 'PM1_max','PM2.5_max','RESP_max','PM10_max','TOTAL_max']
+summDataHeaders = ['Test_Name','PM1_max','PM2.5_max','RESP_max','PM10_max','TOTAL_max','Time_at_max']
 summData = pd.DataFrame(columns=summDataHeaders)
-
-
 
 # ------------------------------ #
 # Start Code Used to Import Data #
@@ -100,7 +98,13 @@ for f in data_file_ls:
 
 
 	# add desired values to summary dataframe
-	rowData = [Test_Name, max(Exp_Data['PM1']), max(Exp_Data['PM2.5']), max(Exp_Data['RESP']), max(Exp_Data['PM10']), max(Exp_Data['TOTAL'])]
+	rowData = [Test_Name, max(Exp_Data['PM1']),
+		max(Exp_Data['PM2.5']), 
+		max(Exp_Data['RESP']), 
+		max(Exp_Data['PM10']), 
+		max(Exp_Data['TOTAL']), 
+		Exp_Data['TOTAL'].idxmax()]
+	print(rowData)
 	summData = summData.append(pd.DataFrame([rowData], columns=summDataHeaders)) 
 
 
