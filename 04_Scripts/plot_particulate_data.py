@@ -20,7 +20,7 @@ from cycler import cycler
 from scipy.signal import butter, filtfilt
 from itertools import cycle
 
-from bokeh.plotting import figure, output_file, show, save,ColumnDataSource,reset_output
+from bokeh.plotting import figure, output_file, show, save, ColumnDataSource, reset_output
 from bokeh.models import HoverTool, Range1d, Span, LinearAxis,LabelSet, Label, BoxAnnotation
 
 from bokeh.models.glyphs import Line, Text
@@ -38,10 +38,6 @@ if not os.path.exists(results_dir):
 
 # Read in exp info file
 exp_info = pd.read_csv(info_dir + 'Particulate_Info.csv', index_col='Test_Name')
-
-# create dataframe for max values
-summDataHeaders = ['Test_Name', 'PM1_max','PM2.5_max','RESP_max','PM10_max','TOTAL_max']
-summData = pd.DataFrame(columns=summDataHeaders)
 
 # define tools for html plots
 TOOLS = "pan,wheel_zoom,box_zoom,reset,save"
