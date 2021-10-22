@@ -1,0 +1,13 @@
+Panel,Channel,Channel_Name,Scale,Offset,Label,Type,Chart
+13,18,1GASCO,1,0,Carbon Monoxide,Percent,Side_A_4in_Gas
+13,19,1GASCO2,5,0,Carbon Dioxide,Percent,Side_A_4in_Gas
+13,20,1GASO2,5,0,Oxygen,Percent,Side_A_4in_Gas
+13,21,2GASCO,1,0,Carbon Monoxide,Percent,Side_A_4ft_Gas
+13,22,2GASCO2,5,0,Carbon Dioxide,Percent,Side_A_4ft_Gas
+13,23,2GASO2,5,0,Oxygen,Percent,Side_A_4ft_Gas
+13,24,3GASCO,1,0,Carbon Monoxide,Percent,Side_C_4in_Gas
+13,25,3GASCO2,5,0,Carbon Dioxide,Percent,Side_C_4in_Gas
+13,26,3GASO2,5,0,Oxygen,Percent,Side_C_4in_Gas
+13,27,4GASCO,1,0,Carbon Monoxide,Percent,Side_C_4ft_Gas
+13,28,4GASCO2,5,0,Carbon Dioxide,Percent,Side_C_4ft_Gas
+13,29,4GASO2,5,0,Oxygen,Percent,Side_C_4ft_Gas

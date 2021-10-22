@@ -1,0 +1,53 @@
+Panel,Channel,Channel_Name,Scale,Offset,Label,Type,Chart
+1,0,1TC1,1,0,7ft 11in Above Floor,Temperature,Side_A_Temperature
+1,1,1TC2,1,0,7ft Above Floor,Temperature,Side_A_Temperature
+1,2,1TC3,1,0,6ft Above Floor,Temperature,Side_A_Temperature
+1,3,1TC4,1,0,5ft Above Floor,Temperature,Side_A_Temperature
+1,4,1TC5,1,0,4ft Above Floor,Temperature,Side_A_Temperature
+1,5,1TC6,1,0,3ft Above Floor,Temperature,Side_A_Temperature
+1,6,1TC7,1,0,2ft Above Floor,Temperature,Side_A_Temperature
+1,7,1TC8,1,0,1ft Above Floor,Temperature,Side_A_Temperature
+1,8,1TC9,1,0,1in Above Floor,Temperature,Side_A_Temperature
+1,9,2TC1,1,0,8ft 11in Above Floor,Temperature,Side_D_Temperature
+1,10,2TC2,1,0,8ft Above Floor,Temperature,Side_D_Temperature
+1,11,2TC3,1,0,7ft Above Floor,Temperature,Side_D_Temperature
+1,12,2TC4,1,0,6ft Above Floor,Temperature,Side_D_Temperature
+1,13,2TC5,1,0,5ft Above Floor,Temperature,Side_D_Temperature
+1,14,2TC6,1,0,4ft Above Floor,Temperature,Side_D_Temperature
+1,15,2TC7,1,0,3ft Above Floor,Temperature,Side_D_Temperature
+1,16,2TC8,1,0,2ft Above Floor,Temperature,Side_D_Temperature
+1,17,2TC9,1,0,1ft Above Floor,Temperature,Side_D_Temperature
+1,18,3TC1,1,0,8ft 11in Above Floor,Temperature,Side_C_Temperature
+1,19,3TC2,1,0,8ft Above Floor,Temperature,Side_C_Temperature
+1,20,3TC3,1,0,7ft Above Floor,Temperature,Side_C_Temperature
+1,21,3TC4,1,0,6ft Above Floor,Temperature,Side_C_Temperature
+1,22,3TC5,1,0,5ft Above Floor,Temperature,Side_C_Temperature
+1,23,3TC6,1,0,4ft Above Floor,Temperature,Side_C_Temperature
+1,24,3TC7,1,0,3ft Above Floor,Temperature,Side_C_Temperature
+1,25,3TC8,1,0,2ft Above Floor,Temperature,Side_C_Temperature
+1,26,3TC9,1,0,1ft Above Floor,Temperature,Side_C_Temperature
+1,27,4TC1,1,0,8ft Above Floor,Temperature,Ignition_Temperature
+1,28,4TC2,1,0,6ft Above Floor,Temperature,Ignition_Temperature
+1,29,4TC3,1,0,4ft Above Floor,Temperature,Ignition_Temperature
+1,30,4TC4,1,0,2ft Above Floor (Ignition),Temperature,Ignition_Temperature
+1,31,Ambient,1,0,Ambient,Temperature,Ambient_Temperature
+13,18,1GASCO,1,0,Carbon Monoxide,Percent,Side_A_4in_Gas
+13,19,1GASCO2,5,0,Carbon Dioxide,Percent,Side_A_4in_Gas
+13,20,1GASO2,5,0,Oxygen,Percent,Side_A_4in_Gas
+13,21,2GASCO,1,0,Carbon Monoxide,Percent,Side_A_4ft_Gas
+13,22,2GASCO2,5,0,Carbon Dioxide,Percent,Side_A_4ft_Gas
+13,23,2GASO2,5,0,Oxygen,Percent,Side_A_4ft_Gas
+13,24,3GASCO,1,0,Carbon Monoxide,Percent,Side_C_4in_Gas
+13,25,3GASCO2,5,0,Carbon Dioxide,Percent,Side_C_4in_Gas
+13,26,3GASO2,5,0,Oxygen,Percent,Side_C_4in_Gas
+13,27,4GASCO,1,0,Carbon Monoxide,Percent,Side_C_4ft_Gas
+13,28,4GASCO2,5,0,Carbon Dioxide,Percent,Side_C_4ft_Gas
+13,29,4GASO2,5,0,Oxygen,Percent,Side_C_4ft_Gas
+14,18,1PT1V,49.8,-125.5,8ft Above Floor,Pressure,Side_A_Pressure
+14,19,1PT2V,49.8,-125.5,5ft Above Floor,Pressure,Side_A_Pressure
+14,20,1PT3V,49.8,-125.5,2ft Above Floor,Pressure,Side_A_Pressure
+14,21,2PT1V,49.8,-125.5,8ft Above Floor,Pressure,Side_C_Pressure
+14,22,2PT2V,49.8,-125.5,5ft Above Floor,Pressure,Side_C_Pressure
+14,23,2PT3V,49.8,-125.5,2ft Above Floor,Pressure,Side_C_Pressure
+13,30,WEA_DIR,51.429,-102.86,Wind Direction,Wind Direction,Wind_Direction
+13,31,WEA_VEL,21.4,-42.9,Wind Velocity,Wind Velocity,Wind_Velocity
